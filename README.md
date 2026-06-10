@@ -1,38 +1,48 @@
 # 🅿️ WebGIS Parkir Publik Kota Bukittinggi
 
-Sistem Informasi Geografis (SIG) berbasis PostgreSQL dan PostGIS untuk mengelola serta menganalisis data lokasi parkir publik di Kota Bukittinggi, Sumatera Barat.
+Sistem Informasi Geografis (SIG) berbasis PostgreSQL dan PostGIS untuk mengelola, memvisualisasikan, dan menganalisis data lokasi parkir publik di Kota Bukittinggi, Sumatera Barat.
 
-**Mata Kuliah:** IF25-40205 Sistem Informasi Geografis  
-**Semester:** Genap 2025/2026  
-**Kelompok:** SIG-04  
+**Mata Kuliah:** IF25-40205 Sistem Informasi Geografis
+**Semester:** Genap 2025/2026
+**Kelompok:** SIG-04
 **Studi Kasus:** T3 – Sistem Informasi Parkir Publik Kota Bukittinggi
 
 ---
 
 ## 👥 Anggota Kelompok
 
-| Nama                | NIM       | Peran                    |
-| ------------------- | --------- | ------------------------ |
-| Aditya Ronal Maruli | 123140093 | Database & Spatial Query |
-| Nabila Yuliana      | 123140099 | Data dan Dokumentasi     |
-| Bima Aryaseta       | 123140177 | Verifikasi dan Pengujian |
+| Nama                | NIM       | Peran                                |
+| ------------------- | --------- | ------------------------------------ |
+| Aditya Ronal Maruli | 123140093 | Database Development & Spatial Query |
+| Nabila Yuliana      | 123140099 | Data Collection & Documentation      |
+| Bima Aryaseta       | 123140177 | Testing & Verification               |
+| Havidz Ridho        | 122140160 | Database Support & Spatial Analysis  |
 
 ---
 
 ## 📌 Deskripsi Proyek
 
-Proyek ini bertujuan membangun basis data spasial untuk memetakan lokasi parkir publik di Kota Bukittinggi menggunakan PostgreSQL dan ekstensi PostGIS.
+Proyek ini bertujuan membangun basis data spasial untuk memetakan dan mengelola lokasi parkir publik di Kota Bukittinggi menggunakan PostgreSQL dan ekstensi PostGIS. Sistem dirancang untuk mendukung pengelolaan data parkir secara terstruktur serta menyediakan berbagai analisis spasial yang dapat membantu pengambilan keputusan terkait penyediaan fasilitas parkir di wilayah perkotaan.
 
 Data yang dikelola meliputi:
 
-- Lokasi parkir publik
-- Kapasitas parkir
-- Tarif parkir per jam
-- Jenis kendaraan
-- Fasilitas pendukung
-- Wilayah administrasi kecamatan
+* Lokasi parkir publik
+* Kapasitas parkir
+* Tarif parkir per jam
+* Jenis kendaraan
+* Fasilitas pendukung
+* Wilayah administrasi kecamatan
 
 Selain penyimpanan data spasial, proyek ini juga mengimplementasikan berbagai fungsi analisis spasial seperti pencarian lokasi parkir terdekat, pencarian lokasi dalam radius tertentu, dan statistik persebaran lokasi parkir.
+
+---
+
+## 🎯 Tujuan Proyek
+
+* Membangun basis data spasial untuk pengelolaan data parkir publik.
+* Mengimplementasikan fungsi analisis spasial menggunakan PostGIS.
+* Menyediakan informasi lokasi parkir yang terstruktur dan mudah dianalisis.
+* Mendukung pengambilan keputusan berbasis lokasi melalui teknologi SIG.
 
 ---
 
@@ -71,10 +81,10 @@ Menyimpan data wilayah administrasi kecamatan dalam bentuk polygon.
 
 **Atribut Utama:**
 
-- id
-- nama_kecamatan
-- kode_wilayah
-- geom (Polygon)
+* id
+* nama_kecamatan
+* kode_wilayah
+* geom (Polygon)
 
 ### Tabel Parkir
 
@@ -82,16 +92,16 @@ Menyimpan data lokasi parkir publik.
 
 **Atribut Utama:**
 
-- id
-- kecamatan_id
-- nama
-- alamat
-- jenis_kendaraan
-- kapasitas
-- tarif_per_jam
-- jam_buka
-- jam_tutup
-- geom (Point)
+* id
+* kecamatan_id
+* nama
+* alamat
+* jenis_kendaraan
+* kapasitas
+* tarif_per_jam
+* jam_buka
+* jam_tutup
+* geom (Point)
 
 ### Tabel Fasilitas
 
@@ -99,10 +109,10 @@ Menyimpan fasilitas yang tersedia pada setiap lokasi parkir.
 
 **Atribut Utama:**
 
-- id
-- parkir_id
-- nama_fasilitas
-- status_aktif
+* id
+* parkir_id
+* nama_fasilitas
+* status_aktif
 
 ### Tabel Admin
 
@@ -110,10 +120,10 @@ Menyimpan data administrator sistem.
 
 **Atribut Utama:**
 
-- id
-- username
-- hashed_password
-- nama_lengkap
+* id
+* username
+* hashed_password
+* nama_lengkap
 
 ---
 
@@ -139,7 +149,7 @@ Digunakan untuk menghitung jarak antara lokasi pengguna dengan lokasi parkir.
 
 Contoh penggunaan:
 
-- Menampilkan 5 lokasi parkir terdekat dari Jam Gadang.
+* Menampilkan 5 lokasi parkir terdekat dari Jam Gadang.
 
 ### 2. ST_DWithin
 
@@ -147,7 +157,7 @@ Digunakan untuk mencari lokasi parkir dalam radius tertentu.
 
 Contoh penggunaan:
 
-- Menampilkan seluruh lokasi parkir dalam radius 500 meter dari Jam Gadang.
+* Menampilkan seluruh lokasi parkir dalam radius 500 meter dari Jam Gadang.
 
 ### 3. ST_Within
 
@@ -155,7 +165,7 @@ Digunakan untuk menentukan lokasi parkir yang berada di dalam suatu wilayah keca
 
 Contoh penggunaan:
 
-- Menghitung jumlah lokasi parkir pada setiap kecamatan.
+* Menghitung jumlah lokasi parkir pada setiap kecamatan.
 
 ### 4. Spatial Index (GiST)
 
@@ -163,8 +173,8 @@ Digunakan untuk mempercepat proses pencarian dan analisis spasial.
 
 Index yang dibuat:
 
-- idx_parkir_geom
-- idx_kecamatan_geom
+* idx_parkir_geom
+* idx_kecamatan_geom
 
 ---
 
@@ -233,19 +243,34 @@ Kecamatan yang digunakan:
 
 ## 📊 Analisis yang Dilakukan
 
-- Pencarian lokasi parkir terdekat.
-- Pencarian lokasi parkir dalam radius tertentu.
-- Rekap jumlah parkir per kecamatan.
-- Rekap kapasitas parkir per kecamatan.
-- Distribusi jenis kendaraan.
-- Analisis persebaran spasial lokasi parkir.
+* Pencarian lokasi parkir terdekat.
+* Pencarian lokasi parkir dalam radius tertentu.
+* Rekap jumlah parkir per kecamatan.
+* Rekap kapasitas parkir per kecamatan.
+* Distribusi jenis kendaraan.
+* Analisis persebaran spasial lokasi parkir.
+* Optimasi query spasial menggunakan GiST Spatial Index.
+
+---
+
+## 🗂️ Sumber Data
+
+Data yang digunakan dalam proyek ini berasal dari:
+
+* Geoportal Kota Bukittinggi untuk data wilayah administrasi dan informasi geospasial.
+* OpenStreetMap sebagai referensi lokasi dan validasi koordinat.
+* Data simulasi lokasi parkir publik yang disusun untuk kebutuhan pembelajaran pada mata kuliah Sistem Informasi Geografis.
+
+Seluruh data digunakan untuk keperluan akademik dan pengembangan proyek tugas besar mata kuliah Sistem Informasi Geografis.
 
 ---
 
 ## 📚 Referensi
 
 1. Panduan Proyek WebGIS SIG ITERA 2025/2026.
-2. Dokumentasi PostgreSQL.
-3. Dokumentasi PostGIS.
-4. GeoPortal BIG Indonesia.
-5. OpenStreetMap.
+2. PostgreSQL Documentation. https://www.postgresql.org/docs/
+3. PostGIS Documentation. https://postgis.net/documentation/
+4. Badan Informasi Geospasial (BIG). https://tanahair.indonesia.go.id
+5. OpenStreetMap. https://www.openstreetmap.org
+6. Geoportal Kota Bukittinggi. https://geoportal.bukittinggikota.go.id/
+7. GeoServer Kota Bukittinggi (Map Preview dan Data Geospasial Kota Bukittinggi). https://geoportal.bukittinggikota.go.id/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?0&filter=false
