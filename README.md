@@ -249,7 +249,3 @@ Kecamatan yang digunakan:
 3. Dokumentasi PostGIS.
 4. GeoPortal BIG Indonesia.
 5. OpenStreetMap.
-
-## Kontributor Frontend
-
-Aditya Ronal Maruli bertanggung jawab pada pengembangan antarmuka pengguna dan integrasi frontend dengan backend.
