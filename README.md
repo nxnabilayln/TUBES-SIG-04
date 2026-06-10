@@ -59,20 +59,6 @@ Selain penyimpanan data spasial, proyek ini juga mengimplementasikan berbagai fu
 
 ---
 
-## 📂 Struktur Folder
-
-```text
-database/
-├── 01_create_db.sql
-├── 02_create_tables.sql
-├── 03_seed_data.sql
-├── 04_import_wilayah.sql
-├── 05_verify_spatial.sql
-└── PANDUAN_GEOPORTAL.md
-```
-
----
-
 ## 🗃️ Struktur Database
 
 ### Tabel Kecamatan
