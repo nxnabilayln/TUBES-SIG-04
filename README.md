@@ -242,7 +242,7 @@ npm run dev
 
 Frontend akan berjalan di **http://localhost:5173**
 
-Buka browser ke alamat tersebut — peta Kota Bukittinggi beserta titik-titik parkir akan tampil.
+Buka browser ke alamat tersebut dan peta Kota Bukittinggi beserta titik-titik parkir akan tampil.
 
 ---
 
