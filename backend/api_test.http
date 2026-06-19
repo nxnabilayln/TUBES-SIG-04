@@ -1,30 +1,22 @@
-### ================================================================
-### api_test.http — Testing semua endpoint WebGIS Parkir Bukittinggi
-### Cara pakai: Install ekstensi "REST Client" di VS Code
-###             lalu klik "Send Request" di atas tiap blok ###
-###
-### URUTAN TEST: jalankan dari atas ke bawah
-### ================================================================
-
 @BASE  = http://localhost:8000
 @TOKEN = GANTI_DENGAN_TOKEN_HASIL_LOGIN
 
 # ================================================================
-# BLOK 0 — Cek server hidup
+# Cek server hidup
 # ================================================================
 
-### [0.1] Root — server running?
+### Root server running?
 GET {{BASE}}/
 
-### [0.2] Swagger docs tersedia?
+### Swagger docs tersedia?
 GET {{BASE}}/docs
 
 # ================================================================
-# BLOK 1 — AUTH
+# BLOK 1 AUTH
 # Expected: { "access_token": "...", "token_type": "bearer" }
 # ================================================================
 
-### [1.1] Login admin — COPY access_token ke variabel @TOKEN di atas
+### Login admin dengan COPY access_token ke variabel @TOKEN di atas
 # @name loginRequest
 POST {{BASE}}/api/auth/login
 Content-Type: application/json
@@ -34,11 +26,11 @@ Content-Type: application/json
   "password": "admin123"
 }
 
-### [1.2] Cek siapa yang login (butuh token)
+### Cek siapa yang login (butuh token)
 GET {{BASE}}/api/auth/me
 Authorization: Bearer {{TOKEN}}
 
-### [1.3] Ganti password (LAKUKAN INI sebelum demo ke dosen!)
+### Ganti password 
 POST {{BASE}}/api/auth/change-password
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
@@ -49,56 +41,56 @@ Authorization: Bearer {{TOKEN}}
 }
 
 # ================================================================
-# BLOK 2 — PARKIR: GET (baca data)
+# BLOK 2 PARKIR: GET (baca data)
 # ================================================================
 
-### [2.1] GET semua parkir → GeoJSON FeatureCollection
+### GET semua parkir dengan GeoJSON FeatureCollection
 # Expected: { "type": "FeatureCollection", "features": [...20 items] }
 GET {{BASE}}/api/parkir
 
-### [2.2] GET parkir id=1 (Parkir Pasar Atas)
+### GET parkir id=1 (Parkir Pasar Atas)
 # Expected: { "id": 1, "nama": "Parkir Pasar Atas...", "latitude": ..., "fasilitas": [...] }
 GET {{BASE}}/api/parkir/1
 
-### [2.3] GET parkir id=999 → harusnya 404
+### GET parkir id=999 → harusnya 404
 # Expected: { "detail": "Parkir id=999 tidak ditemukan" }
 GET {{BASE}}/api/parkir/999
 
 # ================================================================
-# BLOK 3 — PARKIR: SPATIAL QUERIES
+# BLOK 3 PARKIR: SPATIAL QUERIES
 # ================================================================
 
-### [3.1] 5 parkir terdekat dari Jam Gadang
+### 5 parkir terdekat dari Jam Gadang
 # Expected: features diurutkan by jarak_meter ASC
 GET {{BASE}}/api/parkir/terdekat?lat=-0.3051&lng=100.3696&limit=5
 
-### [3.2] Parkir terdekat, filter hanya MOBIL
+### Parkir terdekat, filter hanya MOBIL
 GET {{BASE}}/api/parkir/terdekat?lat=-0.3051&lng=100.3696&limit=5&jenis=mobil
 
-### [3.3] Parkir terdekat, filter hanya MOTOR
+### Parkir terdekat, filter hanya MOTOR
 GET {{BASE}}/api/parkir/terdekat?lat=-0.3051&lng=100.3696&limit=5&jenis=motor
 
-### [3.4] Parkir dalam radius 500m dari Jam Gadang
+### Parkir dalam radius 500m dari Jam Gadang
 # Expected: { "metadata": { "radius_meter": 500, "jumlah_hasil": N }, "features": [...] }
 GET {{BASE}}/api/parkir/dalam-radius?lat=-0.3051&lng=100.3696&radius=500
 
-### [3.5] Parkir dalam radius 1000m (lebih banyak hasil)
+### Parkir dalam radius 1000m (lebih banyak hasil)
 GET {{BASE}}/api/parkir/dalam-radius?lat=-0.3051&lng=100.3696&radius=1000
 
-### [3.6] Filter: hanya motor
+### Filter: hanya motor
 GET {{BASE}}/api/parkir/filter?jenis=motor
 
-### [3.7] Filter: tarif max Rp 2000
+### Filter: tarif max Rp 2000
 GET {{BASE}}/api/parkir/filter?tarif_max=2000
 
-### [3.8] Filter: umum + tarif 2000–3000 + kapasitas min 80
+### Filter: umum + tarif 2000–3000 + kapasitas min 80
 GET {{BASE}}/api/parkir/filter?jenis=umum&tarif_min=2000&tarif_max=3000&kapasitas_min=80
 
 # ================================================================
-# BLOK 4 — PARKIR: CRUD (butuh token admin)
+# BLOK 4 PARKIR: CRUD (butuh token admin)
 # ================================================================
 
-### [4.1] POST tambah parkir baru
+### POST tambah parkir baru
 # Expected: { "message": "Parkir berhasil ditambahkan", "id": 21 }
 POST {{BASE}}/api/parkir
 Content-Type: application/json
@@ -121,7 +113,7 @@ Authorization: Bearer {{TOKEN}}
   ]
 }
 
-### [4.2] POST tanpa token → harusnya 401 Unauthorized
+### POST tanpa token → harusnya 401 Unauthorized
 POST {{BASE}}/api/parkir
 Content-Type: application/json
 
@@ -132,7 +124,7 @@ Content-Type: application/json
   "longitude": 100.3705
 }
 
-### [4.3] POST validasi gagal (jenis_kendaraan salah) → harusnya 422
+### POST validasi gagal (jenis_kendaraan salah) → harusnya 422
 POST {{BASE}}/api/parkir
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
@@ -144,7 +136,7 @@ Authorization: Bearer {{TOKEN}}
   "longitude": 100.3705
 }
 
-### [4.4] PUT update parkir id=21 (yang baru dibuat)
+### PUT update parkir id=21 (yang baru dibuat)
 # Expected: { "message": "Parkir berhasil diupdate", "id": 21 }
 PUT {{BASE}}/api/parkir/21
 Content-Type: application/json
@@ -156,39 +148,39 @@ Authorization: Bearer {{TOKEN}}
   "tarif_per_jam": 3000
 }
 
-### [4.5] GET parkir id=21 → cek update berhasil
+### GET parkir id=21 untuk cek update berhasil
 GET {{BASE}}/api/parkir/21
 
-### [4.6] DELETE parkir id=21
+### DELETE parkir id=21
 # Expected: { "message": "Parkir 'Parkir Test Step 4 (Updated)' berhasil dihapus" }
 DELETE {{BASE}}/api/parkir/21
 Authorization: Bearer {{TOKEN}}
 
-### [4.7] GET parkir id=21 setelah delete → harusnya 404
+### GET parkir id=21 setelah delete → harusnya 404
 GET {{BASE}}/api/parkir/21
 
 # ================================================================
-# BLOK 5 — WILAYAH
+# BLOK 5 WILAYAH
 # ================================================================
 
-### [5.1] GET semua kecamatan → GeoJSON Polygon
+### GET semua kecamatan dengan GeoJSON Polygon
 # Expected: 3 features (Guguk Panjang, Mandiangin, Aur Birugo)
 GET {{BASE}}/api/wilayah
 
-### [5.2] GET detail kecamatan Guguk Panjang (id=1)
+### GET detail kecamatan Guguk Panjang (id=1)
 GET {{BASE}}/api/wilayah/1
 
-### [5.3] GET parkir dalam kecamatan Guguk Panjang (ST_Within / fallback)
+### GET parkir dalam kecamatan Guguk Panjang (ST_Within / fallback)
 # Expected: 9 parkir
 GET {{BASE}}/api/wilayah/1/parkir
 
-### [5.4] GET parkir kecamatan Mandiangin (id=2)
+### GET parkir kecamatan Mandiangin (id=2)
 # Expected: 6 parkir
 GET {{BASE}}/api/wilayah/2/parkir
 
-### [5.5] GET statistik ringkasan semua kecamatan
+### GET statistik ringkasan semua kecamatan
 # Expected: array 3 item dengan jumlah_parkir, total_kapasitas, per_jenis
 GET {{BASE}}/api/wilayah/statistik/ringkasan
 
-### [5.6] GET kecamatan id=999 → harusnya 404
+### GET kecamatan id=999 harusnya 404
 GET {{BASE}}/api/wilayah/999
