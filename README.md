@@ -339,7 +339,7 @@ Seluruh data digunakan untuk keperluan akademik dan pengembangan proyek tugas be
 
 | Masalah | Solusi |
 |---|---|
-| Backend: `could not translate host name` | PostgreSQL belum berjalan — cek service-nya |
+| Backend: `could not translate host name` | PostgreSQL belum berjalan dan cek service-nya |
 | Backend: `ModuleNotFoundError` | Virtual environment belum aktif (`venv\Scripts\activate`) |
 | Frontend: peta tidak muncul / blank | Pastikan backend sudah jalan di port 8000 sebelum `npm run dev` |
 | Frontend: CORS error di konsol | Cek backend `main.py` mengizinkan origin `http://localhost:5173` |
