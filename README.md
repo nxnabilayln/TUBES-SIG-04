@@ -2,10 +2,10 @@
 
 Sistem Informasi Geografis (SIG) berbasis web menggunakan PostgreSQL/PostGIS, FastAPI, dan React/Leaflet untuk mengelola, memvisualisasikan, dan menganalisis data lokasi parkir publik di Kota Bukittinggi, Sumatera Barat.
 
-# **Mata Kuliah:** IF25-40205 Sistem Informasi Geografis
-# **Semester:** Genap 2025/2026
-# **Kelompok:** SIG-04
-# **Studi Kasus:** T3 – Sistem Informasi Parkir Publik Kota Bukittinggi
+### **Mata Kuliah:** IF25-40205 Sistem Informasi Geografis
+### **Semester:** Genap 2025/2026
+### **Kelompok:** SIG-04
+### **Studi Kasus:** T3 – Sistem Informasi Parkir Publik Kota Bukittinggi
 
 ---
 
