@@ -33,7 +33,7 @@ Data yang dikelola meliputi:
 - Fasilitas pendukung
 - Wilayah administrasi kecamatan
 
-Sistem mendukung analisis spasial seperti pencarian lokasi parkir terdekat, pencarian lokasi dalam radius tertentu, dan statistik persebaran lokasi parkir per kecamatan — semuanya bisa diakses lewat peta interaktif maupun dashboard admin.
+Sistem mendukung analisis spasial seperti pencarian lokasi parkir terdekat, pencarian lokasi dalam radius tertentu, dan statistik persebaran lokasi parkir per kecamatan serta semuanya bisa diakses lewat peta interaktif maupun dashboard admin.
 
 ---
 
